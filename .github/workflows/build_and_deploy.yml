@@ -44,5 +44,5 @@ jobs:
     steps:
       - name: SSH to VPS and recreate container
         run: |
-          docker compose -f /home/vvd/page-analyzer/docker-compose.yml pull
-          docker compose -f /home/vvd/page-analyzer/docker-compose.yml up -d --build
+          docker compose -f /home/vvd/page-analyzer/docker-compose.yaml pull
+          docker compose -f /home/vvd/page-analyzer/docker-compose.yaml up -d --build
