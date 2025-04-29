@@ -1,0 +1,39 @@
+services:
+  pa_core:
+    image: ghcr.io/victorvangeli/python-project-83:latest
+    container_name: pa_core
+    restart: always
+    volumes:
+      - ./config/settings.yaml:/code/config/settings.yaml
+      - ./static:/code/static
+    command: make run
+    env_file:
+      - .env
+    depends_on:
+      sp_db:
+        condition: service_healthy
+
+  pa_db:
+    image: postgres:16.8-alpine
+    container_name: pa_db
+    restart: always
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - pa_db:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "sh -c 'pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}'" ]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+
+volumes:
+  pa_db:
+    
+networks:
+  default:
+    name: caddy_net
+    external: true
