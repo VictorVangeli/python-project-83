@@ -48,18 +48,9 @@ jobs:
           host: ${{ secrets.VPS_IP }}
           username: ${{ secrets.VPS_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
+          passphrase: ${{ secrets.SSH_PASSPHRASE }}
           port: 22
           script: |
             cd /home/${{ secrets.VPS_USERNAME }}/page-analyzer
             sudo -i
             sudo docker compose up -d --pull always --force-recreate
-
-      - name: Run Telegram Notify Action
-        uses: proDreams/actions-telegram-notifier@main
-        if: always()
-        with:
-          token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          chat_id: ${{ secrets.TELEGRAM_CHAT_ID }}
-          status: ${{ job.status }}
-          notify_fields: "actor,repository,branch,commit"
-          message: "Job: Deploy project"
