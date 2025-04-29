@@ -2,17 +2,47 @@
 <html lang="ru" class="h-100">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Third project for Hexlet.io">
     <title>
-        {% block title  %}
-        	
+        {% block title %}
+
         {% endblock %}
     </title>
-    <link rel="stylesheet" href="{{ url_for('static', path='css/bootstrap.min.css') }}">
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
 </head>
-<body>
-{% block content %}
-	
-{% endblock %}
-<script src="{{ url_for('static', path='/js/bootstrap.bundle.min.js') }}"></script>
+<body class="min-vh-100 d-flex flex-column">
+<header class="flex-shrink-0">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark px-3">
+        <a class="navbar-brand" href="{{ url_for('app_route.index') }}">Анализатор
+            страниц</a>
+        <div id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link "
+                                        href="{{ url_for('app_route.show_sites') }}">Сайты</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<main class="flex-grow-1">
+    <div class="container-lg mt-3">
+        {% block content %}
+
+        {% endblock %}
+    </div>
+</main>
+<footer class="border-top py-3 mt-5 flex-shrink-0">
+    <div class="container-lg">
+        <div class="text-center">
+            <a href="https://github.com/VictorVangeli/python-project-83"
+               target="_blank">GitHub</a>
+        </div>
+    </div>
+</footer>
+<script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
 </body>
 </html>
