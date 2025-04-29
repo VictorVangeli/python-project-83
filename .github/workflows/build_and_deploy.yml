@@ -43,14 +43,6 @@ jobs:
 
     steps:
       - name: SSH to VPS and recreate container
-        uses: appleboy/ssh-action@v1.2.1
-        with:
-          host: ${{ secrets.VPS_IP }}
-          username: ${{ secrets.VPS_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          passphrase: ${{ secrets.SSH_PASSPHRASE }}
-          port: 22
-          script: |
-            cd /home/${{ secrets.VPS_USERNAME }}/page-analyzer
-            sudo -i
-            sudo docker compose up -d --pull always --force-recreate
+        run: |
+          docker compose -f /home/vvd/page-analyzer/docker-compose.yml pull
+          docker compose -f /home/vvd/page-analyzer/docker-compose.yml up -d --build
