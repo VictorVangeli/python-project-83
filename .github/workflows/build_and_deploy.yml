@@ -42,7 +42,7 @@ jobs:
     runs-on: self-hosted
 
     steps:
-      - name: SSH to VPS and recreate container
+      - name: Deploy on THIS VPS WHERE mounted GIT Runner
         run: |
           docker compose -f /home/vvd/page-analyzer/docker-compose.yaml pull
           docker compose -f /home/vvd/page-analyzer/docker-compose.yaml up -d --build
