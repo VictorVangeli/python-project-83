@@ -1,0 +1,20 @@
+[project]
+name = "hexlet-code"
+version = "0.1.0"
+description = "Page analyzer"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "dynaconf>=3.2.10",
+    "alembic>=1.15.2",
+    "flask>=3.1.0",
+    "gunicorn>=23.0.0",
+]
+packages = [
+  { include = "page_analyzer" },
+]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.11.2",
+]
