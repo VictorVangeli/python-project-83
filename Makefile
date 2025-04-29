@@ -4,7 +4,7 @@ install_dev:
 
 install_prod:
 	uv sync
-	cp -r ./static/* ./static/
+	cp -r ./static_files/* ./static/
 
 migrate_dev:
 	export ENV_FOR_DYNACONF=dev; uv run alembic upgrade head
