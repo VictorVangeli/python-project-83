@@ -3,7 +3,7 @@ from urllib.parse import urlparse
 
 from flask import flash, redirect, url_for, render_template
 
-from page_analyzer.domain.pa_manager import UrlManager
+from page_analyzer.domain.url_manager import UrlManager
 from page_analyzer.entities.enums.message_enums import ErrorsEnum, MessageEnum
 from page_analyzer.entities.schemas.url_schema import BaseName
 
@@ -13,9 +13,8 @@ class UrlService:
             self,
     ):
         self.url_manager = UrlManager()
-        
-        
-    @staticmethod    
+
+    @staticmethod
     async def show_index():
         return render_template('index.html')
 
@@ -30,7 +29,8 @@ class UrlService:
         normalized_name = await self.prepare_url(name)
         url_id = await self.url_manager.add_url(name=normalized_name)
         flash(message=MessageEnum.CONFIRM_ADD_URL.value, category='success')
-        return redirect(url_for('app_route.show_data_for_url', url_id = url_id.id))
+        return redirect(
+            url_for('app_route.show_data_for_url', url_id=url_id.id))
 
     async def _validate_url(self, name: str) -> str | bool:
         if not name:
@@ -39,7 +39,7 @@ class UrlService:
             return ErrorsEnum.INCORRECT_URL.value
         if await self.url_manager.get_url_by_name(name=name):
             return ErrorsEnum.EXISTING_URL.value
-        if len(name)>255:
+        if len(name) > 255:
             return ErrorsEnum.INCORRECT_LENGTH_OF_URL.value
         return True
 
@@ -55,6 +55,7 @@ class UrlService:
             template_name_or_list='show_data_for_url.html',
             url_data=url_data,
         )
+
     async def show_all_url(self):
         urls = await self.url_manager.get_all_urls()
         return render_template(

@@ -3,7 +3,7 @@ from asgiref.wsgi import WsgiToAsgi
 from flask import Flask
 
 from page_analyzer.core.settings import get_settings
-from page_analyzer.domain.pa_routes import app_route
+from page_analyzer.domain.url_routes import app_route
 
 
 def run_app():
