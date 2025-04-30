@@ -78,7 +78,7 @@ async def get_all_notes_by_url(self, url_id: int) -> UrlDataWithChecksTuple:
             select(
                 self.checks_model,
             )
-            .where(self.checks_model.url_id == url_id)
+            .where(url_id == self.checks_model.url_id)
             .order_by(desc(self.checks_model.id))
         )
 
@@ -89,7 +89,7 @@ async def get_all_notes_by_url(self, url_id: int) -> UrlDataWithChecksTuple:
             select(
                 self.url_model
             )
-            .where(self.url_model.id == url_id)
+            .where(url_id == self.url_model.id)
         )
 
         result_url_data = await session.execute(url_data_query)
@@ -145,7 +145,7 @@ async def get_all_urls(self) -> [UrlWithLastCheckSchema]:
                 self.checks_model.created_at.label("last_check"),
             )
             .outerjoin(self.checks_model,
-                       self.url_model.id == self.checks_model.url_id)
+                       self.checks_model.url_id == self.url_model.id) # noqa
             .distinct(self.url_model.id)
             .order_by(
                 desc(self.url_model.id),
