@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}
+    <h1>Страница не найдена</h1>
+{% endblock %}
+
+{% block content %}
+
+    <p>Здесь нет того, что вы ищете</p>
+    <p>
+        <a href="{{ url_for("app_route.index") }}">Вернуться на главную</a>
+    </p>
+{% endblock %}

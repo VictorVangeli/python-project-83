@@ -1,3 +1,4 @@
+from http.client import responses
 from urllib.parse import urlparse
 
 import httpx
@@ -94,14 +95,18 @@ class UrlService:
         :type url_id: int
         :returns: Результат обработки данных.
         """
-        url_full_data = await self.url_manager.get_all_notes_by_url(
-            url_id=url_id)
-        return render_template(
+        if await self.url_manager.get_url_by_id(url_id=url_id):
+            url_full_data = await self.url_manager.get_all_notes_by_url(
+                url_id=url_id)
+            response = render_template(
             template_name_or_list='show_data_for_url.html',
             url_data=url_full_data.url_data,
             checks_data=url_full_data.checks_data,
         )
-
+        else:
+            response = render_template("404.html")
+        return response
+    
     async def show_all_url(self):
         """
         Показывает все добавленные в базу данных URL.
