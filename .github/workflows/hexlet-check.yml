@@ -25,4 +25,4 @@ jobs:
       - name: Hexlet project check
         uses: hexlet/project-action@release
         with:
-          hexlet-id: ${{ secrets.HEXLET_ID }}
+          hexlet-id:  'user-fa314132c13c371d'
