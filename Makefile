@@ -8,13 +8,15 @@ install_prod:
 
 migrate_dev:
 	export ENV_FOR_DYNACONF=dev; uv run alembic upgrade head
+
 migrate_prod:
 	export ENV_FOR_DYNACONF=prod; uv run alembic upgrade head
+
 run_dev:
-	export ENV_FOR_DYNACONF=dev; uv run gunicorn page_analyzer.core.app:app --bind 0.0.0.0:8000 --timeout 180
+	export ENV_FOR_DYNACONF=dev; uv run app
 
 run_prod: install_prod migrate_prod
-	export ENV_FOR_DYNACONF=prod; uv run gunicorn page_analyzer.core.app:app --bind 0.0.0.0:8000 --timeout 180
+	export ENV_FOR_DYNACONF=prod; uv run app
 
 lint:
 	uv run ruff check .
