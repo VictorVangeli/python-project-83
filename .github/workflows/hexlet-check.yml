@@ -22,3 +22,7 @@ jobs:
         uses: hexlet/project-action@release
         with:
           hexlet-id: ${{ secrets.HEXLET_ID }}
+      - name: Debug permissions
+        run: |
+          whoami
+          ls -l .git/objects/04
