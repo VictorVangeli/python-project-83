@@ -4,7 +4,7 @@ from sqlalchemy import select, desc, insert, asc
 
 from page_analyzer.entities.schemas.url_schema import UrlSchema
 from page_analyzer.infrastructure.database.db_dependency import DBDependency
-from page_analyzer.infrastructure.models import Urls
+from page_analyzer.infrastructure.database.models import Urls
 
 
 class UrlManager:

@@ -4,7 +4,7 @@ import uuid
 from sqlalchemy import UUID, Date, func, String
 from sqlalchemy.orm import Mapped, mapped_column
 
-from page_analyzer.infrastructure.models.base import Base
+from page_analyzer.infrastructure.database.models.base import Base
 
 
 class Urls(Base):

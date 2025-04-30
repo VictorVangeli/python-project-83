@@ -8,7 +8,7 @@ from sqlalchemy.ext.asyncio import async_engine_from_config
 from alembic import context
 
 from page_analyzer.core.settings import get_settings
-from page_analyzer.infrastructure.models.base import Base
+from page_analyzer.infrastructure.database.models.base import Base
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
