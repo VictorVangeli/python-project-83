@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Сайты
+{% endblock %}
+
+{% block content %}
+    <section>
+        <h1>Страницы</h1>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover text-nowrap"
+                   data-test="urls">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Имя</th>
+                    <th>Последняя проверка</th>
+                    <th>Код ответа</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for url in urls %}
+                    <tr>
+                        <td>
+                            <a href="{{ url_for('app_route.show_data_for_url', url_id=url.id) }}">{{ url.id }}</a>
+                        </td>
+                        <td>
+                            <a href="{{ url.name }}" target="_blank">{{ url.name }}</a>
+                        </td>
+                    </tr>
+                    <td></td>
+                    <td></td>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+{% endblock %}

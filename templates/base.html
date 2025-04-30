@@ -21,12 +21,13 @@
         <div id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item"><a class="nav-link "
-                                        href="{{ url_for('app_route.show_sites') }}">Сайты</a>
+                                        href="{{ url_for('app_route.show_all_urls') }}">Сайты</a>
                 </li>
             </ul>
         </div>
     </nav>
 </header>
+{% include 'components/flash_messages.html' %}
 
 <main class="flex-grow-1">
     <div class="container-lg mt-3">
