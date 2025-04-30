@@ -50,8 +50,8 @@ class UrlManager:
                 select(
                     self.checks_model,
                 )
-                .where(self.checks_model.id == url_id)
-                .order_by(desc(self.checks_model.created_at))
+                .where(self.checks_model.url_id == url_id)
+                .order_by(desc(self.checks_model.id))
             )
 
             result_checks = await session.execute(checks_query)
@@ -116,15 +116,13 @@ class UrlManager:
                 for url in urls
             ]
 
-    async def add_check_result_for_url(self, url_id: int):
+    async def add_check_result_for_url(self, url_data: CheckSchema):
         async with self._db.db_session() as session:
             query = (
                 insert(
                     self.checks_model
                 )
-                .values(
-                    url_id=url_id,
-                )
+                .values(**url_data.model_dump(exclude_none=True))
             )
             await session.execute(query)
             await session.commit()

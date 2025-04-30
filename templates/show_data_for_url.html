@@ -56,7 +56,7 @@
                         <td>{{ check.status_code if check.status_code else "" }}</td>
                         <td>{{ check.h1 if check.h1 else "" }}</td>
                         <td>{{ check.title if check.title else "" }}</td>
-                        <td>{{ check.description if check.description else "" }}</td>
+                        <td>{{ check.description[:191] ~ '...' if check.description and check.description|length > 191 else check.description or "" }}</td>
                         <td>{{ check.created_at if check.created_at else "" }}</td>
                         </tbody>
                     {% endfor %}
