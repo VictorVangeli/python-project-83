@@ -15,6 +15,11 @@ dependencies = [
     "uvicorn>=0.34.2",
     "hatchling>=1.27.0",
     "asgiref>=3.8.1",
+    "httpx>=0.28.1",
+    "bs64>=0.0.1",
+    "uv>=0.7.1",
+    "beautifulsoup4>=4.13.4",
+    "validators>=0.34.0",
 ]
 packages = [
   { include = "page_analyzer" },
