@@ -30,7 +30,8 @@
 
     <section>
         <h2 class="mt-5 mb-3">Проверки</h2>
-        <form method="post" action="#">
+        <form method="post"
+              action="{{ url_for("app_route.check_particular_url", url_id = url_data.id) }}">
             <input type="submit" class="btn btn-primary"
                    value="Запустить проверку">
         </form>
@@ -49,13 +50,21 @@
                 </tr>
                 </thead>
                 <tbody>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                </tbody>
+                {% if checks_data %}
+                    {% for check in checks_data %}
+                        <td>{{ check.id if check.id }}</td>
+                        <td>{{ check.status_code if check.status_code else "" }}</td>
+                        <td>{{ check.h1 if check.h1 else "" }}</td>
+                        <td>{{ check.title if check.title else "" }}</td>
+                        <td>{{ check.description if check.description else "" }}</td>
+                        <td>{{ check.created_at if check.created_at else "" }}</td>
+                        </tbody>
+                    {% endfor %}
+                    {% else %}
+                    {% for _ in range(6) %}
+                    <td></td>
+                    {% endfor %}
+                {% endif %}
             </table>
         </div>
 

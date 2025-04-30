@@ -49,11 +49,14 @@ class UrlService:
         normalized_name = f"{parsed.scheme}://{parsed.netloc}"
         return normalized_name
 
-    async def show_data_for_url(self, url_id: uuid.UUID):
-        url_data = await self.url_manager.get_url_by_id(url_id=url_id)
+    async def show_data_for_url(self, url_id: int):
+        url_full_data = await self.url_manager.get_all_notes_by_url(url_id=url_id)
+        url_data = url_full_data.url_data
+        checks_data = url_full_data.checks_data
         return render_template(
             template_name_or_list='show_data_for_url.html',
             url_data=url_data,
+            checks_data=checks_data,
         )
 
     async def show_all_url(self):
@@ -61,4 +64,10 @@ class UrlService:
         return render_template(
             template_name_or_list='show_all_urls.html',
             urls=urls,
+        )
+
+    async def check_url(self, url_id: int):
+        url_data = await self.url_manager.add_check_result_for_url(url_id=url_id)
+        return redirect(
+            url_for(endpoint='app_route.show_data_for_url', url_id=url_id)
         )
