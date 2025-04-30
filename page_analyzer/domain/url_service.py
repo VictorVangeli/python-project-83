@@ -1,4 +1,3 @@
-from http.client import responses
 from urllib.parse import urlparse
 
 import httpx
@@ -99,14 +98,14 @@ class UrlService:
             url_full_data = await self.url_manager.get_all_notes_by_url(
                 url_id=url_id)
             response = render_template(
-            template_name_or_list='show_data_for_url.html',
-            url_data=url_full_data.url_data,
-            checks_data=url_full_data.checks_data,
-        )
+                template_name_or_list='show_data_for_url.html',
+                url_data=url_full_data.url_data,
+                checks_data=url_full_data.checks_data,
+            )
         else:
             response = render_template("404.html")
         return response
-    
+
     async def show_all_url(self):
         """
         Показывает все добавленные в базу данных URL.
@@ -138,7 +137,7 @@ class UrlService:
             await self.url_manager.add_check_result_for_url(
                 CheckSchema(**parsed_data.model_dump(), url_id=url_id))
         except httpx.RequestError as e:
-            print(f"Ошибка запроса: {e}")
+            flash(ErrorsEnum.ERROR_CHECK.value, 'danger')
         return redirect(
             url_for(endpoint='app_route.show_data_for_url', url_id=url_id)
         )

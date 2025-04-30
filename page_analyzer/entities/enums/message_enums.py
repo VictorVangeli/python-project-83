@@ -6,6 +6,7 @@ class ErrorsEnum(Enum):
     INCORRECT_LENGTH_OF_URL = "Длина превышает допустимый лимит в 255 символов"
     INCORRECT_URL = "Ссылка некорректна"
     EXISTING_URL = 'Ссылка уже существует'
+    ERROR_CHECK = 'Произошла ошибка при проверке'
     
 class MessageEnum(Enum):
     CONFIRM_ADD_URL = "URL успешно добавлен!"
