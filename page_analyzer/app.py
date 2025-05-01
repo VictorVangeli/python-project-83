@@ -17,9 +17,8 @@ def create_app() -> Flask:
     return app
 
 
-app = create_app()
 
-asgi_app = WsgiToAsgi(app)
+asgi_app = WsgiToAsgi(create_app())
 
 
 def run_app():
