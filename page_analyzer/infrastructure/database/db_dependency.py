@@ -13,16 +13,3 @@ class DBDependency(Singleton):
     @property
     def db_session(self) -> async_sessionmaker[AsyncSession]:
         return self._session_factory
-
-    @staticmethod
-    async def get_count(session: AsyncSession, query: Select) -> int:
-        result = await session.execute(query)
-        return result.scalar_one()
-
-
-def get_db_session() -> async_sessionmaker[AsyncSession]:
-    return DBDependency().db_session
-
-
-async def get_db_dependency() -> DBDependency:
-    return DBDependency()
