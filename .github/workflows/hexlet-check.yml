@@ -26,3 +26,5 @@ jobs:
         uses: hexlet/project-action@release
         with:
           hexlet-id: ${{ secrets.HEXLET_ID }}
+        env:
+          ACTIONS_STEP_DEBUG: true
