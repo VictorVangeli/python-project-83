@@ -32,7 +32,7 @@ dev = [
 ]
 
 [project.scripts]
-app = "page_analyzer.runner:run"
+app = "page_analyzer.app:run_app"
 
 [build-system]
 requires = ["hatchling"]
