@@ -133,7 +133,6 @@ class UrlService:
         url_data = await self.url_manager.get_url_by_id(url_id=url_id)
         try:
             parsed_data = await parse_url(url=url_data.name)
-            print(CheckSchema(**parsed_data.model_dump(), url_id=url_id))
             await self.url_manager.add_check_result_for_url(
                 CheckSchema(**parsed_data.model_dump(), url_id=url_id))
         except httpx.RequestError as e:
