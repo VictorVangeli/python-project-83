@@ -9,11 +9,11 @@ class Configuration(Singleton):
         environments=True,
         settings_files=["config/settings.yaml"],
         validators=[
-            Validator("SECRET_KEY", must_exist=True),
-            Validator("DATABASE_URL", must_exist=True),
+            Validator("SECRET_KEY", default='ddddddddddddddddddddddddddddddd'),
+            Validator("DATABASE_URL", default="postgresql+asyncpg://pa_pan:pa_pass@pa_db:5432/pa_db"),
             Validator("TIME_ZONE", default="Europe/Moscow"),
-            Validator("STATIC_DIR"),
-            Validator("TEMPLATES_DIR"),
+            Validator("STATIC_DIR", default="../static_files"),
+            Validator("TEMPLATES_DIR", default="../templates"),
         ],
     )
 
