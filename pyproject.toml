@@ -20,6 +20,7 @@ dependencies = [
     "uv>=0.7.1",
     "beautifulsoup4>=4.13.4",
     "validators>=0.34.0",
+    "gunicorn>=23.0.0",
 ]
 packages = [
   { include = "page_analyzer" },
