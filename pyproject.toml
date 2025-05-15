@@ -22,6 +22,7 @@ dependencies = [
     "validators>=0.34.0",
     "gunicorn>=23.0.0",
     "psycopg2-binary>=2.9.10",
+    "playwright>=1.52.0",
 ]
 packages = [
   { include = "page_analyzer" },
