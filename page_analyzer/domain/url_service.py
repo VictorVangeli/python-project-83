@@ -35,14 +35,14 @@ class UrlService:
         :returns: Результат валидации или None, если успешно добавлено.
         :rtype: Union[str, None]
         """
-        validation_result = await self._validate_url(name=name)
+        normalized_name = await self.prepare_url(name)
+        validation_result = await self._validate_url(name=normalized_name)
 
         if validation_result is not True:
             flash(message=validation_result, category='danger')
             return redirect(
                 url_for('app_route.index'))
 
-        normalized_name = await self.prepare_url(name)
         url_id = await self.url_manager.add_url(name=normalized_name)
         flash(message=MessageEnum.CONFIRM_ADD_URL.value, category='success')
         return redirect(
