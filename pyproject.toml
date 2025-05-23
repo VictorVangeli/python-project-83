@@ -23,6 +23,7 @@ dependencies = [
     "gunicorn>=23.0.0",
     "psycopg2-binary>=2.9.10",
     "playwright==1.50.0",
+    "pre-commit>=4.2.0",
 ]
 packages = [
   { include = "page_analyzer" },
