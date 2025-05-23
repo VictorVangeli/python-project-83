@@ -1,5 +1,3 @@
-import uvicorn
-from asgiref.wsgi import WsgiToAsgi
 from flask import Flask
 
 from page_analyzer.core.settings import get_settings
@@ -18,5 +16,6 @@ def run_app():
     #     asgi_app, host="0.0.0.0", port=8000, loop="asyncio",
     # )
     return app
+
 
 app = run_app()

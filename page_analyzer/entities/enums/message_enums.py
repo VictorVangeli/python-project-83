@@ -2,11 +2,13 @@ from enum import Enum
 
 
 class ErrorsEnum(Enum):
-    MISSING_URL =  "Данные отсутствуют"
+    MISSING_URL = "Данные отсутствуют"
     INCORRECT_LENGTH_OF_URL = "Длина превышает допустимый лимит в 255 символов"
-    INCORRECT_URL = "Ссылка некорректна"
-    EXISTING_URL = 'Ссылка уже существует'
+    INCORRECT_URL = "Некорректный URL"
+    EXISTING_URL = 'Страница уже существует'
     ERROR_CHECK = 'Произошла ошибка при проверке'
     
+
 class MessageEnum(Enum):
-    CONFIRM_ADD_URL = "URL успешно добавлен!"
+    CONFIRM_ADD_URL = "Страница успешно добавлена"
+    SUCCESS_CHECK = "Страница успешно проверена"

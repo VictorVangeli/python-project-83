@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import Blueprint, request
 
 from page_analyzer.domain.url_service import UrlService
 from page_analyzer.entities.forms.url_forms import UrlForm
@@ -14,7 +14,7 @@ async def index():
     return await UrlService.show_index()
 
 
-@app_route.post('/add-url')
+@app_route.post('/urls')
 async def add_data_for_url():
     """
     Добавляет данные для URL.
@@ -23,7 +23,7 @@ async def add_data_for_url():
     return await UrlService().validate_and_add_url(name=url)
 
 
-@app_route.route('/urls')
+@app_route.get('/urls')
 async def show_all_urls():
     """
     Отображает список всех добавленных URL-адресов с информацией о последней

@@ -6,29 +6,36 @@ from page_analyzer.entities.schemas.url_schema import ParsedUrlSchema
 
 async def parse_url(url: str) -> ParsedUrlSchema:
     """
-    Парсит URL и извлекает необходимые данные.
+    Выполняет запрос по URL и извлекает:
+    - статус-код
+    - <title>
+    - <h1>
+    - <meta name="description">
 
-    :param url: URL для парсинга.
-    :type url: str
-    :returns: Cхему для ссылки, которая содержит поля `status_code`, `title`, 
-        `h1`, `description`.
-    :rtype: ParsedUrlSchema
+    Если <h1> отсутствует, пытается извлечь его из iframe.
     """
-    async with httpx.AsyncClient() as client:
+    async with httpx.AsyncClient(follow_redirects=True, timeout=10) as client:
         response = await client.get(url)
-        status_code = response.status_code
-        parsed_data = BeautifulSoup(response.text, 'html.parser')
+        html = response.text
+
+        parsed_data = BeautifulSoup(html, 'html.parser')
+
+        # fallback на iframe, если нет h1
+        if not parsed_data.find('h1'):
+            iframe = parsed_data.find('iframe')
+            if iframe and iframe.get('src'):
+                iframe_response = await client.get(iframe['src'])
+                iframe_data = BeautifulSoup(iframe_response.text, 'html.parser')
+                parsed_data.append(iframe_data)
 
         title = parsed_data.title.string.strip() if parsed_data.title else None
         h1_tag = parsed_data.find('h1')
         h1 = h1_tag.text.strip() if h1_tag else None
-        description_tag = parsed_data.find('meta',
-                                           attrs={'name': 'description'})
-        description = description_tag.get('content',
-                                          '').strip() if description_tag else None
+        description_tag = parsed_data.find('meta', attrs={'name': 'description'})
+        description = description_tag.get('content', '').strip() if description_tag else None
 
         return ParsedUrlSchema(
-            status_code=status_code,
+            status_code=response.status_code,
             title=title,
             h1=h1,
             description=description,

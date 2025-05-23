@@ -24,6 +24,12 @@ run_prod:
 #run_prod: install_prod migrate_prod
 #	export ENV_FOR_DYNACONF=prod; uv run app
 
+clean_db:
+	export ENV_FOR_DYNACONF=dev; uv run clean_db
+	
+test_dev: clean_db
+	uv run pytest
+
 lint:
 	uv run ruff check .
 

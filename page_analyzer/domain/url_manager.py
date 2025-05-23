@@ -60,7 +60,6 @@ class UrlManager:
             return None
         return UrlSchema.model_validate(result, from_attributes=True)
 
-
     async def get_all_notes_by_url(self, url_id: int) -> UrlDataWithChecksTuple:
         """ 
         Возвращает все записи для конкретного URL и информацию о добавленном 
@@ -106,7 +105,6 @@ class UrlManager:
                 ],
             )
 
-
     async def add_url(self, name: str) -> UrlSchema:
         """
         Добавляет URL в базу данных.
@@ -123,7 +121,6 @@ class UrlManager:
             result = (await session.execute(query)).scalar_one()
             await session.commit()
             return UrlSchema.model_validate(result, from_attributes=True)
-
 
     async def get_all_urls(self) -> [UrlWithLastCheckSchema]:
         """
@@ -163,7 +160,6 @@ class UrlManager:
                     from_attributes=True)
                 for url in urls
             ]
-
 
     async def add_check_result_for_url(self, url_data: CheckSchema):
         """
