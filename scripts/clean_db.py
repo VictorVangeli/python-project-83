@@ -12,5 +12,6 @@ async def clean_db():
         await session.execute(clean_db_query)
         await session.commit()
 
+
 def main():
     asyncio.run(clean_db())

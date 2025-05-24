@@ -1,18 +1,4 @@
 services:
-  pa_core:
-    image: ghcr.io/victorvangeli/python-project-83:latest
-    container_name: pa_core
-    restart: always
-    volumes:
-      - ./config/settings.yaml:/code/config/settings.yaml
-      - ./static:/code/static
-    command: make run
-    env_file:
-      - .env
-    depends_on:
-      pa_db:
-        condition: service_healthy
-
   pa_db:
     image: postgres:16.8-alpine
     container_name: pa_db
