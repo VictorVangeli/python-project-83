@@ -26,8 +26,12 @@ run_prod:
 
 clean_db:
 	export ENV_FOR_DYNACONF=dev; uv run clean_db
-	
-test_dev: clean_db
+
+
+playwright_prepare:
+	uv pip install pytest-playwright
+
+test_dev: playwright_prepare clean_db
 	uv run pytest
 
 lint:
