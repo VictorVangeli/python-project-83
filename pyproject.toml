@@ -26,6 +26,7 @@ dependencies = [
     "pre-commit>=4.2.0",
     "requests>=2.32.3",
     "types-requests>=2.32.0",
+    "pytest>=8.3.5",
 ]
 packages = [
     { include = "page_analyzer" },
