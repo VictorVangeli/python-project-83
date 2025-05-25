@@ -3,15 +3,14 @@ default:
   DOMAIN: 'http://localhost:8000/'
   TIME_ZONE: "Europe/Moscow"
   SECRET_KEY: "5A82eF61Bd0C430a95CcfB8f5a0bC0D2"
-  TEMPLATES_DIR: "../../templates"
+  TEMPLATES_DIR: "../templates"
 
 dev:
   DOMAIN: 'http://localhost:8000/'
-  DATABASE_URL: "postgresql+asyncpg://pa_pan:pa_pass@localhost:5445/pa_db"
-  STATIC_DIR: "../../static_files"
+  DATABASE_URL: "postgresql+psycopg2://pa_pan:pa_pass@localhost:5445/pa_db"
+  STATIC_DIR: "../static_files"
 
 prod:
   DOMAIN: 'https://page-analyzer.pupsidian.ru/'
-  DATABASE_URL: "postgresql+asyncpg://pa_pan:pa_pass@pa_db:5432/pa_db"
-  STATIC_DIR: "../../static"
- 
+  DATABASE_URL: "postgresql+psycopg2://pa_pan:pa_pass@pa_db:5432/pa_db"
+  STATIC_DIR: "../static"

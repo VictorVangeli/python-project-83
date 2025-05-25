@@ -24,7 +24,8 @@ def upgrade() -> None:
     op.create_table('urls',
     sa.Column('name', sa.String(), nullable=False),
     sa.Column('id', sa.Integer(), autoincrement=True, nullable=False),
-    sa.Column('created_at', sa.Date(), server_default=sa.text('CURRENT_DATE'), nullable=False),
+    sa.Column('created_at', sa.Date(), 
+              server_default=sa.text('CURRENT_DATE'), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('url_checks',
@@ -33,8 +34,10 @@ def upgrade() -> None:
     sa.Column('h1', sa.String(), nullable=True),
     sa.Column('description', sa.String(length=255), nullable=True),
     sa.Column('id', sa.Integer(), autoincrement=True, nullable=False),
-    sa.Column('created_at', sa.Date(), server_default=sa.text('CURRENT_DATE'), nullable=False),
-    sa.ForeignKeyConstraint(['url_id'], ['urls.id'], ondelete='CASCADE'),
+    sa.Column('created_at', sa.Date(), server_default=sa.text(
+        'CURRENT_DATE'), nullable=False),
+    sa.ForeignKeyConstraint(['url_id'], ['urls.id'], 
+                            ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('id')
     )
     # ### end Alembic commands ###
