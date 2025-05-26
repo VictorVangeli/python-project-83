@@ -17,10 +17,7 @@ class Configuration(Singleton):
             Validator("SECRET_KEY", default="ddddddddddddddddddddddddddddddd"),
             Validator(
                 "DATABASE_URL",
-                default=(
-                    os.environ.get("DATABASE_URL")
-                    or "postgresql://pa_pan:pa_pass@pa_db:5432/pa_db"
-                ).replace("postgres://", "postgresql+psycopg2://"),
+                default=os.environ.get("DATABASE_URL"),
             ),
             Validator("TIME_ZONE", default="Europe/Moscow"),
             Validator("STATIC_DIR", default="../static_files"),
@@ -31,3 +28,10 @@ class Configuration(Singleton):
 
 def get_settings() -> Dynaconf:
     return Configuration.settings
+
+
+def get_db_settings() -> str:
+    db_url = Configuration.settings.DATABASE_URL
+    if db_url.startswith("postgres://"):
+        db_url = db_url.replace("postgres://", "postgresql+psycopg2://")
+    return db_url

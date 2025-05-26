@@ -5,14 +5,14 @@ from alembic.script import ScriptDirectory
 from flask import Flask
 from sqlalchemy import create_engine
 
-from page_analyzer.core.settings import get_settings
+from page_analyzer.core.settings import get_settings, get_db_settings
 from page_analyzer.domain.url_routes import app_route
 
 
 def run_migrations_if_needed():
     alembic_cfg = Config("alembic.ini")
-    print(get_settings().DATABASE_URL)
-    engine = create_engine(get_settings().DATABASE_URL)
+    print(get_db_settings())
+    engine = create_engine(get_db_settings())
     with engine.connect() as conn:
         current_rev = MigrationContext.configure(conn).get_current_revision()
         script = ScriptDirectory.from_config(alembic_cfg)

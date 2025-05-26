@@ -7,7 +7,7 @@ default:
 
 dev:
   DOMAIN: 'http://localhost:8000/'
-  DATABASE_URL: "postgresql://pa_pan:pa_pass@localhost:5445/pa_db"
+#  DATABASE_URL: "postgresql://pa_pan:pa_pass@localhost:5445/pa_db"
   STATIC_DIR: "../static_files"
 
 prod:
