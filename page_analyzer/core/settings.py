@@ -1,6 +1,11 @@
+import os
+
+from dotenv import load_dotenv
 from dynaconf import Dynaconf, Validator
 
 from page_analyzer.core.Base.singleton import Singleton
+
+load_dotenv()
 
 
 class Configuration(Singleton):
@@ -12,7 +17,7 @@ class Configuration(Singleton):
             Validator("SECRET_KEY", default="ddddddddddddddddddddddddddddddd"),
             Validator(
                 "DATABASE_URL",
-                default="postgresql+psycopg2://pa_pan:pa_pass@pa_db:5432/pa_db",
+                default=os.environ.get("DATABASE_URL"),
             ),
             Validator("TIME_ZONE", default="Europe/Moscow"),
             Validator("STATIC_DIR", default="../static_files"),

@@ -11,6 +11,7 @@ from page_analyzer.domain.url_routes import app_route
 
 def run_migrations_if_needed():
     alembic_cfg = Config("alembic.ini")
+    print(get_settings().DATABASE_URL)
     engine = create_engine(get_settings().DATABASE_URL)
     with engine.connect() as conn:
         current_rev = MigrationContext.configure(conn).get_current_revision()

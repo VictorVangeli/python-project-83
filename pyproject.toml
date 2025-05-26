@@ -27,6 +27,7 @@ dependencies = [
     "requests>=2.32.3",
     "types-requests>=2.32.0",
     "pytest>=8.3.5",
+    "python-dotenv>=1.1.0",
 ]
 packages = [
     { include = "page_analyzer" },
