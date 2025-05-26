@@ -17,7 +17,10 @@ class Configuration(Singleton):
             Validator("SECRET_KEY", default="ddddddddddddddddddddddddddddddd"),
             Validator(
                 "DATABASE_URL",
-                default=os.environ.get("DATABASE_URL"),
+                default=(
+                    os.environ.get("DATABASE_URL")
+                    or "postgresql://pa_pan:pa_pass@pa_db:5432/pa_db"
+                ).replace("postgres://", "postgresql+psycopg2://"),
             ),
             Validator("TIME_ZONE", default="Europe/Moscow"),
             Validator("STATIC_DIR", default="../static_files"),
