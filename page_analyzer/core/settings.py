@@ -33,5 +33,5 @@ def get_settings() -> Dynaconf:
 def get_db_settings() -> str:
     db_url = Configuration.settings.DATABASE_URL
     if db_url.startswith("postgres://"):
-        db_url = db_url.replace("postgres://", "postgresql+psycopg2://")
+        db_url = db_url.replace("postgres://", "postgresql://")
     return db_url
