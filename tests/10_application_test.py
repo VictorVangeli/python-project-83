@@ -5,17 +5,17 @@ import urllib
 def test_success(page, base_url):
     correct = {
         "code": "200",
-        "title": "Tickets at Stub.com! Buy Concert Tickets, Sports Tickets,"
-        "Theater Tickets and More!",
-        "h1": "",
-        "description": "Stub.com is your connection to find tickets for sale at"
-        "cheap prices. Get your tickets to sold out events for"
-        "concert tickets, sports tickets, theater tickets,"
-        "broadway tickets, las vegas tickets and more!",
+        "title": "Хекслет — онлайн-школа программирования, онлайн-обучение "
+        "ИТ-профессиям",
+        "h1": "Помогли стать программистами 4500+ выпускникам",
+        "description": "Хекслет — лучшая школа программирования по версии"
+        " пользователей Хабра. Авторские программы обучения с "
+        "практикой и готовыми проектами в резюме. Помощь в "
+        "трудоустройстве после успешного окончания обучения",
     }
 
     page.goto(base_url)
-    page.locator('input[name="url"]').type("http://stub.com/")
+    page.locator('input[name="url"]').type("https://ru.hexlet.io")
     page.locator('input[type="submit"]').click()
     assert page.locator("text=Страница успешно добавлена").is_visible()
 
