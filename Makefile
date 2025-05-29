@@ -19,7 +19,7 @@ run_dev:
 	export ENV_FOR_DYNACONF=dev; uv run gunicorn page_analyzer.app:app --bind 0.0.0.0:8000 --timeout 180
 
 run_prod:
-	export ENV_FOR_DYNACONF=dev; uv run gunicorn page_analyzer.app:app --bind 0.0.0.0:8000 --timeout 180
+	export ENV_FOR_DYNACONF=prod; uv run gunicorn page_analyzer.app:app --bind 0.0.0.0:8000 --timeout 180
 
 # Для uvicorn
 #run_dev:
