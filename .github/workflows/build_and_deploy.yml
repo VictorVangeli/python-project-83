@@ -68,7 +68,8 @@ jobs:
           
       - name: Run PostgreSQL manually
         run: |
-          docker stop pa_db
+          docker stop pa_db || true
+          docker rm pa_db || true
           docker run -d --name pa_db \
             -e POSTGRES_USER=pa_pan \
             -e POSTGRES_PASSWORD=pa_pass \
