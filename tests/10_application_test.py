@@ -118,6 +118,7 @@ def test_site_is_invalid(page, base_url):
     assert page.locator("text=Страница успешно добавлена").is_visible()
 
     page.locator("text=Запустить проверку").click()
+    print(page.content())
     assert page.locator("text=Произошла ошибка при проверке").is_visible()
     assert (
         "Im wrong site, you shouldnt have my header"
