@@ -7,7 +7,7 @@ from page_analyzer.infrastructure.database.db_dependency import DBDependency
 
 def test_prod_clean_db():
     db = DBDependency()
-    engine = db.db_engine()
+    engine = db.engine()
 
     with engine.connect() as conn:
         conn.execute(text("DROP SCHEMA public CASCADE"))

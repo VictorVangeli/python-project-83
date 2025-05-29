@@ -16,3 +16,7 @@ class DBDependency(Singleton):
     @property
     def db_session(self) -> sessionmaker[Session]:
         return self._session_factory
+
+    @property
+    def engine(self):
+        return self._engine
