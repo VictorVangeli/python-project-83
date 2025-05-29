@@ -42,7 +42,7 @@ test_dev: playwright_prepare local_clean_db
 	uv run pytest
 
 test_prod: playwright_prepare prod_test_clean_db
-	uv run pytest
+	ENV_FOR_DYNACONF=prod SKIP_MIGRATIONS=true uv run pytest
 
 lint:
 	uv run ruff check .

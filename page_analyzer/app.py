@@ -1,3 +1,5 @@
+import os
+
 from alembic import command
 from alembic.config import Config
 from alembic.runtime.migration import MigrationContext
@@ -10,6 +12,9 @@ from page_analyzer.domain.url_routes import app_route
 
 
 def run_migrations_if_needed():
+    if os.getenv("SKIP_MIGRATIONS") == "true":
+        print("Skipping Alembic migrations due to SKIP_MIGRATIONS=true")
+        return
     alembic_cfg = Config("alembic.ini")
     print(get_db_settings())
     engine = create_engine(get_db_settings())
