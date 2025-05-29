@@ -65,12 +65,27 @@ jobs:
           mv config/settings.example.yaml config/settings.yaml
           mv .env.example .env
           
+      - name: Run PostgreSQL manually
+        run: |
+          docker run -d --name pa_db \
+            -e POSTGRES_USER=pa_pan \
+            -e POSTGRES_PASSWORD=pa_pass \
+            -e POSTGRES_DB=pa_db \
+            -p 5432:5432 \
+            postgres:16.8-alpine
+        
       - name: Run PyTest
         env:
           ENV_FOR_DYNACONF: prod
+          DB_HOST: localhost
         run: |
           make run_prod &
           make test_dev
+          
+          
+      - name: Stop PostgreSQL container
+        if: always()
+        run: docker rm -f pa_db
   
   build-and-push:
     runs-on: self-hosted
