@@ -9,10 +9,9 @@ def test_prod_clean_db():
     db = DBDependency()
     engine = db.engine
 
-    with engine.connect() as conn:
+    with engine.begin() as conn:
         conn.execute(text("DROP SCHEMA public CASCADE"))
         conn.execute(text("CREATE SCHEMA public"))
-        conn.commit()
 
     alembic_cfg = Config("page_analyzer/infrastructure/database/alembic.ini")
     command.upgrade(alembic_cfg, "head")
