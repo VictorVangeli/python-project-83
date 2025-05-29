@@ -13,7 +13,7 @@ def test_prod_clean_db():
         conn.execute(text("DROP SCHEMA public CASCADE"))
         conn.execute(text("CREATE SCHEMA public"))
 
-    alembic_cfg = Config("page_analyzer/infrastructure/database/alembic.ini")
+    alembic_cfg = Config("alembic.ini")
     command.upgrade(alembic_cfg, "head")
 
 
