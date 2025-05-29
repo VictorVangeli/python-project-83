@@ -2,9 +2,10 @@ from urllib.parse import urlparse
 
 import httpx
 import validators
-from flask import flash, make_response, redirect, render_template, url_for
+from flask import flash, redirect, url_for
 
 from page_analyzer.domain.url_manager import UrlManager
+from page_analyzer.domain.url_presentation import UrlPresentation
 from page_analyzer.entities.enums.message_enums import ErrorsEnum, MessageEnum
 from page_analyzer.entities.schemas.url_schema import CheckSchema
 from page_analyzer.utils.url_parse import parse_url
@@ -15,6 +16,7 @@ class UrlService:
         self,
     ):
         self.url_manager = UrlManager()
+        self.url_presentation = UrlPresentation()
 
     @staticmethod
     def show_index():
@@ -24,7 +26,7 @@ class UrlService:
         :return: Отрендеренный шаблон 'index.html'.
         :rtype: Response
         """
-        return render_template("index.html")
+        return UrlPresentation.render_index(template_name="index.html")
 
     def validate_and_add_url(self, name: str):
         """
@@ -50,10 +52,12 @@ class UrlService:
                 )
             else:
                 flash(message=validation_result, category="danger")
-                html = render_template(
-                    "index.html", urls=self.url_manager.get_all_urls()
+                list_urls = self.url_manager.get_all_urls()
+                template_name = "index.html"
+                code = 422
+                return self.url_presentation.render_add_data_for_url_page(
+                    template_name=template_name, list_urls=list_urls, code=code
                 )
-                return make_response(html, 422)
 
         url_id = self.url_manager.add_url(name=normalized_name)
         flash(message=MessageEnum.CONFIRM_ADD_URL.value, category="success")
@@ -78,7 +82,7 @@ class UrlService:
         if not validators.url(name):
             return ErrorsEnum.INCORRECT_URL.value, None
         if existing_url := self.url_manager.get_url_by_name(name=name):
-            return ErrorsEnum.EXISTING_URL.value, existing_url
+            return MessageEnum.EXISTING_URL.value, existing_url
         if len(name) > 255:
             return ErrorsEnum.INCORRECT_LENGTH_OF_URL.value, None
         return True, None
@@ -108,15 +112,17 @@ class UrlService:
         :returns: Результат обработки данных.
         """
         if self.url_manager.get_url_by_id(url_id=url_id):
-            url_full_data = self.url_manager.get_all_notes_by_url(url_id=url_id)
-            response = render_template(
-                template_name_or_list="show_data_for_url.html",
+            url_full_data = self.url_manager.get_all_records_by_url(
+                url_id=url_id
+            )
+            return self.url_presentation.render_data_for_url(
+                template_name="show_data_for_url.html",
                 url_data=url_full_data.url_data,
                 checks_data=url_full_data.checks_data,
             )
-        else:
-            response = render_template("404.html")
-        return response
+        return self.url_presentation.render_data_for_url(
+            template_name="404.html"
+        )
 
     def show_all_url(self):
         """
@@ -125,10 +131,8 @@ class UrlService:
         :returns: HTML-шаблон со списком всех URL.
         :rtype: str
         """
-        urls = self.url_manager.get_all_urls()
-        return render_template(
-            template_name_or_list="show_all_urls.html",
-            urls=urls,
+        return self.url_presentation.render_data_for_all_url(
+            urls=self.url_manager.get_all_urls()
         )
 
     def check_url(self, url_id: int):
@@ -138,10 +142,15 @@ class UrlService:
         try:
             url_data = self.url_manager.get_url_by_id(url_id=url_id)
             parsed_data = parse_url(url_data.name)
-            self.url_manager.add_check_result_for_url(
-                CheckSchema(**parsed_data.model_dump(), url_id=url_id)
-            )
-            flash(message=MessageEnum.SUCCESS_CHECK.value, category="success")
+            if parsed_data.status_code and parsed_data.status_code > 500:
+                flash(ErrorsEnum.ERROR_CHECK.value, "danger")
+            else:
+                self.url_manager.add_check_result_for_url(
+                    CheckSchema(**parsed_data.model_dump(), url_id=url_id)
+                )
+                flash(
+                    message=MessageEnum.SUCCESS_CHECK.value, category="success"
+                )
         except httpx.RequestError:
             flash(ErrorsEnum.ERROR_CHECK.value, "danger")
         except Exception:

@@ -54,7 +54,7 @@ class UrlManager:
             return None
         return UrlSchema.model_validate(result, from_attributes=True)
 
-    def get_all_notes_by_url(self, url_id: int) -> UrlDataWithChecksTuple:
+    def get_all_records_by_url(self, url_id: int) -> UrlDataWithChecksTuple:
         """
         Возвращает все записи для конкретного URL и информацию о добавленном
         URL.

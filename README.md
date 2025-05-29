@@ -9,6 +9,7 @@
 2. В `.env` замените значение переменной SECRET_KEY;
 3. Создайте `settings.yaml` из `settings.example.yaml` (сделайте дубликат и в названии оставьте `settings.yaml`). Файл находится по пути `/config/settings.example.yaml`;
 4. В `settings.yaml` по необходимости скорректируйте значения полей `DOMAIN` и `DATABASE_URL`;
+5. Убедитесь, что у вас на устройстве установлен и запущен `Docker`. Подробную информацию по установке и запуску вы можете найти [тут](https://docs.docker.com/engine/install/)
 5. В `docker-compose-dev.yaml` приведите в соответствие значение поля `port` для контейнера `pa_db`, если вы изменяли его в `settings.yaml`;
 6. В `pytest.ini` приведите в соответствие значение поля `addopts`, в `settings.yaml`;
 7. Выполните команду в терминале `make install_dev`, чтобы установить все зависимости;

@@ -44,7 +44,7 @@ def show_data_for_url(url_id: int):
 
 
 @app_route.post("/urls/<int:url_id>/checks")
-def check_particular_url(url_id: int):
+def check_url(url_id: int):
     """
     Проверяет состояние конкретной URL по её ID.
 
