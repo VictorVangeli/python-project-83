@@ -90,7 +90,7 @@ jobs:
           DB_HOST: localhost
         run: |
           make run_prod &
-          make test_dev
+          make test_prod
           
           
       - name: Stop PostgreSQL container

@@ -27,15 +27,21 @@ run_prod:
 #run_prod: install_prod migrate_prod
 #	export ENV_FOR_DYNACONF=prod; uv run app
 
-clean_db:
-	export ENV_FOR_DYNACONF=dev; uv run clean_db
+local_clean_db:
+	export ENV_FOR_DYNACONF=dev; uv run local_clean_db
+
+prod_test_clean_db:
+	export ENV_FOR_DYNACONF=prod; uv run prod_test_clean_db
 
 
 playwright_prepare:
 	uv pip install pytest-playwright
 	uv run playwright install
 
-test_dev: playwright_prepare clean_db
+test_dev: playwright_prepare local_clean_db
+	uv run pytest
+
+test_prod: playwright_prepare prod_test_clean_db
 	uv run pytest
 
 lint:

@@ -40,7 +40,8 @@ dev = [
 
 [project.scripts]
 app = "page_analyzer.app:run_app"
-clean_db = "scripts.clean_db:main"
+local_clean_db = "scripts.local_clean_db:main"
+prod_test_clean_db = "scripts.prod_test_clean_db:main"
 
 [build-system]
 requires = ["hatchling"]
