@@ -59,6 +59,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install uv
           uv sync
+          uv run playwright install-deps
           
       - name: Create settings file
         run: |
@@ -67,6 +68,7 @@ jobs:
           
       - name: Run PostgreSQL manually
         run: |
+          docker stop pa_db
           docker run -d --name pa_db \
             -e POSTGRES_USER=pa_pan \
             -e POSTGRES_PASSWORD=pa_pass \
