@@ -142,7 +142,11 @@ class UrlService:
         try:
             url_data = self.url_manager.get_url_by_id(url_id=url_id)
             parsed_data = parse_url(url_data.name)
-            if parsed_data.status_code and parsed_data.status_code > 500:
+            if (
+                parsed_data.status_code
+                and parsed_data.status_code > 500
+                or parsed_data.status_code == 404
+            ):
                 flash(ErrorsEnum.ERROR_CHECK.value, "danger")
             else:
                 self.url_manager.add_check_result_for_url(
