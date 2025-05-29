@@ -35,15 +35,11 @@ jobs:
   tests:
     runs-on: self-hosted
     needs: linter
-    services:
-      pa_db:
-        image: postgres:16.8-alpine
-        ports:
-          - 5432:5432
     env:
       POSTGRES_USER: pa_pan
       POSTGRES_PASSWORD: pa_pass
       POSTGRES_DB: pa_db
+      DATABASE_URL: DATABASE_URL=postgres://pa_pan:pa_pass@localhost:5432/pa_db
     
     steps:
       - name: Checkout repository
@@ -54,10 +50,21 @@ jobs:
         with:
           python-version: "3.13"
           
+      - name: Cache Python environment
+        uses: actions/cache@v4
+        with:
+          path: |
+            .venv
+            ~/.cache/uv
+          key: venv-${{ runner.os }}-${{ hashFiles('**/pyproject.toml') }}
+          restore-keys: |
+            venv-${{ runner.os }}-
+            
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install uv
+          uv venv
           uv sync
           uv run playwright install-deps
           
