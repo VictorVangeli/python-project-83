@@ -12,4 +12,4 @@ def _screenshot_with_timeout(self, *args, **kwargs):
 
 
 Page.screenshot = _screenshot_with_timeout
-__all__ = []
+__all__: list = []

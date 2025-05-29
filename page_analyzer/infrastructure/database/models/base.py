@@ -5,7 +5,7 @@ from sqlalchemy.orm import DeclarativeBase, declared_attr
 
 class Base(DeclarativeBase):
     """
-    Базовый класс для всех моделей базы данных, использующий SQLAlchemy 
+    Базовый класс для всех моделей базы данных, использующий SQLAlchemy
     DeclarativeBase.
 
     Метод __tablename__ автоматически генерирует имя таблицы в нижнем регистре
@@ -15,7 +15,7 @@ class Base(DeclarativeBase):
     @declared_attr.directive
     def __tablename__(cls) -> str:  # noqa
         """
-        Определяет имя таблицы в базе данных на основе имени класса. Если имя 
+        Определяет имя таблицы в базе данных на основе имени класса. Если имя
         содержит после начала строки заглавную
         букву, то перед ней будет поставлен "_", если таких заглавных букв
         более чем одна, то "_" будет только перед
@@ -29,6 +29,7 @@ class Base(DeclarativeBase):
         вместо заглавных букв.
         :rtype: str
         """
-        name = re.sub(r"(?<=[a-z])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])", 
-                      "_", cls.__name__)
+        name = re.sub(
+            r"(?<=[a-z])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])", "_", cls.__name__
+        )
         return name.lower()

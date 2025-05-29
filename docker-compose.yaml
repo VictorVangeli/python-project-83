@@ -34,7 +34,7 @@ services:
 
 #volumes:
 #  pa_db:
-    
+
 networks:
   default:
     name: caddy_net

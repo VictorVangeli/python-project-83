@@ -31,8 +31,7 @@ class ParsedUrlSchema(BaseStatusCode):
     h1: str | None = None
     title: str | None = None
     description: str | None = None
-    
+
 
 class CheckSchema(BaseID, ParsedUrlSchema, BaseCreatedAt):
     url_id: int | None = None
-

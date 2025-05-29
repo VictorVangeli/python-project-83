@@ -41,6 +41,9 @@ test_dev: playwright_prepare clean_db
 lint:
 	uv run ruff check .
 
+lint_pre-commit:
+	uv run pre-commit run --all-files
+
 fix:
 	uv run ruff check --fix
 
